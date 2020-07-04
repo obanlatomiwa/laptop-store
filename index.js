@@ -42,7 +42,7 @@ const server = http.createServer((req, res) => {
 
     // url not found
     else {
-        res.writeHead(404, {'content-type': 'text/html'})
+        res.writeHead(404, {'content-type': 'text/html'}) 
         res.end('page does not exist');
     }
 
