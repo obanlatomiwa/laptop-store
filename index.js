@@ -13,7 +13,21 @@ const server = http.createServer((req, res) => {
         res.end('this d product page');
     }else if(pathName === '/laptop' && id < laptopData.length){
         res.writeHead(200, {'content-type': 'text/html'})
-        res.end(`this a laptop page with id ${id}`);
+        fs.readFile(`${__dirname}/templates/template-laptop.html`, 'utf-8', (err, data) => {
+            const laptop = laptopData[id];
+            let output = data.replace(/{%PRODUCTNAME%}/g, laptop.productName);
+            output = output.replace(/{%PRICE%}/g, laptop.price);
+            output = output.replace(/{%SCREEN%}/g, laptop.screen);
+            output = output.replace(/{%CPU%}/g, laptop.cpu);
+            output = output.replace(/{%STORAGE%}/g, laptop.storage);
+            output = output.replace(/{%RAM%}/g, laptop.ram);
+            output = output.replace(/{%DESCRIPTION%}/g, laptop.description);
+            output = output.replace(/{%IMAGE%}/g, laptop.image);
+            res.end(output);
+
+
+
+        })
     }else {
         res.writeHead(404, {'content-type': 'text/html'})
         res.end('page does not exist');
